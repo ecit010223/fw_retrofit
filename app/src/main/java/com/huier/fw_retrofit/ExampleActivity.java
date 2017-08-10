@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.huier.fw_retrofit.request.MyRequest;
+import com.huier.fw_retrofit.request.ExampleRequest;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExampleActivity extends AppCompatActivity implements View.OnClickListener {
     //实例演示
-    private Retrofit myRetrofit;
+    private Retrofit mRetrofit;
     private Button btnBasicUse;
 
     public static void entry(Context from){
@@ -33,7 +33,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
-        myRetrofit = new Retrofit.Builder()
+        mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Constants.URL_RXJAVA)
                 .build();
@@ -56,8 +56,8 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
 
     private void basicUse(){
         Log.d(Constants.TAG,"basicUse()");
-        MyRequest myRequest = myRetrofit.create(MyRequest.class);
-        Call<ResponseBody> rxJavaCall = myRequest.getRxJava("rxjava");
+        ExampleRequest exampleRequest = mRetrofit.create(ExampleRequest.class);
+        Call<ResponseBody> rxJavaCall = exampleRequest.getRxJava("rxjava");
         //发送网络请求（异步）
         rxJavaCall.enqueue(new Callback<ResponseBody>() {
             @Override

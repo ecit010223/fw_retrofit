@@ -9,7 +9,7 @@ import retrofit2.http.Path;
  * 作者：张玉辉
  * 时间：2017/8/10.
  */
-public interface MyRequest {
+public interface ExampleRequest {
 
     @GET("{api}")
     Call<ResponseBody> getRxJava(@Path("api") String api);

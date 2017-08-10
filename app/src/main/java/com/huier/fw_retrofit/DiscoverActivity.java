@@ -1,6 +1,5 @@
 package com.huier.fw_retrofit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.huier.fw_retrofit.request.MarkRequest;
-import com.huier.fw_retrofit.request.MyRequest;
 import com.huier.fw_retrofit.request.PathRequest;
 import com.huier.fw_retrofit.request.QueryRequest;
 import com.huier.fw_retrofit.request.UrlRequest;
