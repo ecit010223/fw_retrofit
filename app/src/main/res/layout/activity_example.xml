@@ -6,13 +6,8 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_discover"
+        android:id="@+id/btn_basic_use"
         style="@style/TextStyle"
-        android:text="知识点学习"/>
-
-    <Button
-        android:id="@+id/btn_example"
-        style="@style/TextStyle"
-        android:text="实例"/>
+        android:text="基本使用"/>
 
 </LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_FormUrlEncoded_Field"
+            style="@style/TextStyle"
+            android:text="\@FormUrlEncoded标记@Field参数"/>
+
+        <Button
+            android:id="@+id/btn_FormUrlEncoded_FieldMap"
+            style="@style/TextStyle"
+            android:text="\@FormUrlEncoded标记@FieldMap参数"/>
+
+        <Button
+            android:id="@+id/btn_Multipart_Part"
+            style="@style/TextStyle"
+            android:text="\@Multipart标记@Part参数"/>
+
+        <Button
+            android:id="@+id/btn_Multipart_Part2"
+            style="@style/TextStyle"
+            android:text="\@Multipart标记@Part参数2"/>
+
+        <Button
+            android:id="@+id/btn_Multipart_PartMap"
+            style="@style/TextStyle"
+            android:text="\@Multipart标记@PartMap参数"/>
+
+        <Button
+            android:id="@+id/btn_GET_Query"
+            style="@style/TextStyle"
+            android:text="\@GET标记@Query参数"/>
+
+        <Button
+            android:id="@+id/btn_GET_QueryMap"
+            style="@style/TextStyle"
+            android:text="\@GET标记@QueryMap参数"/>
+
+        <Button
+            android:id="@+id/btn_GET_Path"
+            style="@style/TextStyle"
+            android:text="\@GET标记@Path参数"/>
+
+        <Button
+            android:id="@+id/btn_GET_Url"
+            style="@style/TextStyle"
+            android:text="\@GET标记@Url参数"/>
+    </LinearLayout>
+</ScrollView>
