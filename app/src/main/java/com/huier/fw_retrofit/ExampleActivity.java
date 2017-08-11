@@ -18,13 +18,19 @@ import com.huier.fw_retrofit.beans.Translation;
 import com.huier.fw_retrofit.beans.YouDaoTranslation;
 import com.huier.fw_retrofit.request.ExampleRequest;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.IOException;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExampleActivity extends AppCompatActivity implements View.OnClickListener {
@@ -158,23 +164,27 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
         //创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_YOUDAO)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())  //对请求的数据进行转换
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //对返回的数据进行转换
                 .build();
         //创建网络请求接口的实例
         ExampleRequest exampleRequest = retrofit.create(ExampleRequest.class);
         //发送请求 进行封装(设置需要翻译的内容)
-        Call<YouDaoTranslation> askYouDaoCall = exampleRequest.askYouDao("I love you");
-        askYouDaoCall.enqueue(new Callback<YouDaoTranslation>() {
-            @Override
-            public void onResponse(Call<YouDaoTranslation> call, Response<YouDaoTranslation> response) {
-                Log.d(Constants.TAG,response.body().getTranslateResult().get(0).get(0).getTgt());
-            }
-
-            @Override
-            public void onFailure(Call<YouDaoTranslation> call, Throwable t) {
-                Log.d(Constants.TAG,"网络请求失败");
-            }
-        });
+        exampleRequest.askYouDao("I love you")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<YouDaoTranslation>(){});
+//        askYouDaoCall.enqueue(new Callback<YouDaoTranslation>() {
+//            @Override
+//            public void onResponse(Call<YouDaoTranslation> call, Response<YouDaoTranslation> response) {
+//                Log.d(Constants.TAG,response.body().getTranslateResult().get(0).get(0).getTgt());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<YouDaoTranslation> call, Throwable t) {
+//                Log.d(Constants.TAG,"网络请求失败");
+//            }
+//        });
 
     }
 }

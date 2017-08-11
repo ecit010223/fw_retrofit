@@ -1,5 +1,6 @@
 package com.huier.fw_retrofit.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * }
  */
 
-public class YouDaoTranslation {
+public class YouDaoTranslation implements Serializable{
     private String type;
     private int errorCode;
     private int elapsedTime;

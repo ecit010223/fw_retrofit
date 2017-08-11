@@ -3,6 +3,7 @@ package com.huier.fw_retrofit.request;
 import com.huier.fw_retrofit.beans.Translation;
 import com.huier.fw_retrofit.beans.YouDaoTranslation;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -53,5 +54,5 @@ public interface ExampleRequest {
      */
     @POST("translate?doctype=json&jsonversion=&type=&keyfrom=&model=&mid=&imei=&vendor=&screen=&ssid=&network=&abtest=")
     @FormUrlEncoded
-    Call<YouDaoTranslation> askYouDao(@Field("i") String targetSentence);
+    Observable<YouDaoTranslation> askYouDao(@Field("i") String targetSentence);
 }

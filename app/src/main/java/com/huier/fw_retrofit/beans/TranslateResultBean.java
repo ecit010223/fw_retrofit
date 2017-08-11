@@ -1,11 +1,13 @@
 package com.huier.fw_retrofit.beans;
 
+import java.io.Serializable;
+
 /**
  * 作者：张玉辉
  * 时间：2017/8/11.
  */
 
-public class TranslateResultBean {
+public class TranslateResultBean implements Serializable{
     public String src;
     public String tgt;
 
