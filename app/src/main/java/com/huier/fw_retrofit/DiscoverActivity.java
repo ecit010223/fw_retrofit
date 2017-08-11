@@ -18,6 +18,7 @@ import com.huier.fw_retrofit.request.MarkRequest;
 import com.huier.fw_retrofit.request.PathRequest;
 import com.huier.fw_retrofit.request.QueryRequest;
 import com.huier.fw_retrofit.request.UrlRequest;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -102,7 +102,7 @@ public class DiscoverActivity extends AppCompatActivity implements View.OnClickL
                 .addConverterFactory(GsonConverterFactory.create())
                 //设置网络请求适配器，此处采用com.squareup.retrofit2:adapter-rxjava
                 //Retrofit支持多种网络请求适配器方式：guava、Java8和rxjava
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         mMarkRequest = mRetrofit.create(MarkRequest.class);
         initView();

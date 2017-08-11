@@ -45,12 +45,10 @@
             android:text="\@GET标记@QueryMap参数"/>
 
         <Button
-            android:id="@+id/btn_GET_Path"
             style="@style/TextStyle"
             android:text="\@GET标记@Path参数"/>
 
         <Button
-            android:id="@+id/btn_GET_Url"
             style="@style/TextStyle"
             android:text="\@GET标记@Url参数"/>
     </LinearLayout>

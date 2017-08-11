@@ -13,24 +13,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.huier.fw_retrofit.beans.Translation;
 import com.huier.fw_retrofit.beans.YouDaoTranslation;
 import com.huier.fw_retrofit.request.ExampleRequest;
-
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ExampleActivity extends AppCompatActivity implements View.OnClickListener {
@@ -165,7 +165,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_YOUDAO)
                 .addConverterFactory(GsonConverterFactory.create())  //对请求的数据进行转换
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())  //对返回的数据进行转换
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())  //对返回的数据进行转换
                 .build();
         //创建网络请求接口的实例
         ExampleRequest exampleRequest = retrofit.create(ExampleRequest.class);
@@ -173,7 +173,27 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
         exampleRequest.askYouDao("I love you")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<YouDaoTranslation>(){});
+                .subscribe(new Observer<YouDaoTranslation>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.annotations.NonNull YouDaoTranslation youDaoTranslation) {
+                        Log.d(Constants.TAG,youDaoTranslation.getTranslateResult().get(0).get(0).getTgt());
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        Log.d(Constants.TAG,e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(mActivity, "Get Top Movie Completed", Toast.LENGTH_SHORT).show();
+                    }
+                });
 //        askYouDaoCall.enqueue(new Callback<YouDaoTranslation>() {
 //            @Override
 //            public void onResponse(Call<YouDaoTranslation> call, Response<YouDaoTranslation> response) {
