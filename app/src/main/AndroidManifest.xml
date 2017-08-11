@@ -18,10 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".DiscoverActivity">
-        </activity>
-        <activity android:name=".ExampleActivity">
-        </activity>
+        <activity
+            android:name=".DiscoverActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ExampleActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

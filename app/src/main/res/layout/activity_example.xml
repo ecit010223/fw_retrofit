@@ -10,4 +10,14 @@
         style="@style/TextStyle"
         android:text="基本使用"/>
 
+    <Button
+        android:id="@+id/btn_iciba"
+        style="@style/TextStyle"
+        android:text="金山词霸查询"/>
+
+    <Button
+        android:id="@+id/btn_youdao"
+        style="@style/TextStyle"
+        android:text="有道词典查询"/>
+
 </LinearLayout>

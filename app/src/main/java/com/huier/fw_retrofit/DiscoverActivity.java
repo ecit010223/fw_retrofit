@@ -1,7 +1,13 @@
 package com.huier.fw_retrofit;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +71,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @QueryMap  GET,同上
  */
 public class DiscoverActivity extends AppCompatActivity implements View.OnClickListener {
+    private Activity mActivity;
     private Retrofit mRetrofit;
     private MarkRequest mMarkRequest;
     private Button btnFormUrlEncodedField;
@@ -74,6 +81,8 @@ public class DiscoverActivity extends AppCompatActivity implements View.OnClickL
     private Button btnMultipartPartMap;
     private Button btnGETQuery;
     private Button btnGETQueryMap;
+    /** 当前被点击的控件 **/
+    private View mCurrentClickView;
 
     public static void entry(Context from){
         Intent intent = new Intent(from,DiscoverActivity.class);
@@ -84,6 +93,7 @@ public class DiscoverActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
+        mActivity = this;
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_YOUDAO)
                 //设置数据解析器，此处采用com.squareup.retrofit2:converter-gson
@@ -117,29 +127,57 @@ public class DiscoverActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_FormUrlEncoded_Field:
-                formUrlEncodedField();
-                break;
-            case R.id.btn_FormUrlEncoded_FieldMap:
-                formUrlEncodedFieldMap();
-                break;
-            case R.id.btn_Multipart_Part:
-                multipartPart();
-                break;
-            case R.id.btn_Multipart_Part2:
-                multipartPart2();
-                break;
-            case R.id.btn_Multipart_PartMap:
-                multipartPartMap();
-                break;
-            case R.id.btn_GET_Query:
-                getQuery();
-                break;
-            case R.id.btn_GET_QueryMap:
-                getQueryMap();
+        if(requestPermission()){
+            switch (view.getId()){
+                case R.id.btn_FormUrlEncoded_Field:
+                    formUrlEncodedField();
+                    break;
+                case R.id.btn_FormUrlEncoded_FieldMap:
+                    formUrlEncodedFieldMap();
+                    break;
+                case R.id.btn_Multipart_Part:
+                    multipartPart();
+                    break;
+                case R.id.btn_Multipart_Part2:
+                    multipartPart2();
+                    break;
+                case R.id.btn_Multipart_PartMap:
+                    multipartPartMap();
+                    break;
+                case R.id.btn_GET_Query:
+                    getQuery();
+                    break;
+                case R.id.btn_GET_QueryMap:
+                    getQueryMap();
+                    break;
+            }
+        }else{
+            mCurrentClickView = view;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case Constants.INTERNET_REQUEST_CODE:
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    onClick(mCurrentClickView);
+                }
                 break;
         }
+    }
+
+    /** 申请网络访问权限 **/
+    private boolean requestPermission(){
+        boolean hasPermission = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.INTERNET)
+                == PackageManager.PERMISSION_GRANTED;
+        if(!hasPermission){
+            ActivityCompat.requestPermissions(mActivity,new String[]{Manifest.permission.INTERNET},
+                    Constants.INTERNET_REQUEST_CODE);
+            ActivityCompat.shouldShowRequestPermissionRationale(mActivity,Manifest.permission.INTERNET);
+        }
+        return hasPermission;
     }
 
     /** \@FormUrlEncoded标记，@Field参数 **/

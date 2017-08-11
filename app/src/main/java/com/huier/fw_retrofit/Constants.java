@@ -9,10 +9,14 @@ import okhttp3.MediaType;
 
 public class Constants {
     public static final String TAG = "tag";
+    /** 网络申请码 **/
+    public static final int INTERNET_REQUEST_CODE = 110;
     /** 本地rxjava.json访问地址 **/
     public static final String URL_RXJAVA = "http://192.168.1.211:8080/";
     /** 有道翻译地址 **/
     public static final String URL_YOUDAO = "http://fanyi.youdao.com/";
+    /** 词霸翻译地址 **/
+    public static final String URL_CIBA = "http://fy.iciba.com/";
 
     /** 文本格式 **/
     public static final MediaType MEDIA_TYPE_TEXT = MediaType.parse("text/plain; charset=utf-8");
