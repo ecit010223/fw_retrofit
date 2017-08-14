@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.huier.fw_retrofit.beans.Translation;
 import com.huier.fw_retrofit.beans.YouDaoTranslation;
+import com.huier.fw_retrofit.encapsulate.HttpMethods;
 import com.huier.fw_retrofit.request.ExampleRequest;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -37,7 +38,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
     private Activity mActivity;
     //实例演示
     private Retrofit mRetrofit;
-    private Button btnBasicUse,btnICIBA,btnYouDao;
+    private Button btnBasicUse,btnICIBA,btnYouDao,btnYouDaoEncapsulate;
 
     /** 当前被单击的控件 **/
     private View mCurrentClickView;
@@ -66,6 +67,8 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
         btnICIBA.setOnClickListener(this);
         btnYouDao = (Button)findViewById(R.id.btn_youdao);
         btnYouDao.setOnClickListener(this);
+        btnYouDaoEncapsulate = (Button)findViewById(R.id.btn_youdao_encapsulate);
+        btnYouDaoEncapsulate.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +83,9 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.btn_youdao:
                     requestYouDao();
+                    break;
+                case R.id.btn_youdao_encapsulate:
+                    requestYouDaoEncapsulate();
                     break;
             }
         }else{
@@ -176,7 +182,6 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
                 .subscribe(new Observer<YouDaoTranslation>() {
                     @Override
                     public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-
                     }
 
                     @Override
@@ -191,7 +196,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
 
                     @Override
                     public void onComplete() {
-                        Toast.makeText(mActivity, "Get Top Movie Completed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "request youdao Completed", Toast.LENGTH_SHORT).show();
                     }
                 });
 //        askYouDaoCall.enqueue(new Callback<YouDaoTranslation>() {
@@ -205,6 +210,30 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
 //                Log.d(Constants.TAG,"网络请求失败");
 //            }
 //        });
+    }
 
+    /** 有道词典查询封装 **/
+    private void requestYouDaoEncapsulate(){
+        HttpMethods.getInstance().askYouDao(new Observer<YouDaoTranslation>() {
+            @Override
+            public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@io.reactivex.annotations.NonNull YouDaoTranslation youDaoTranslation) {
+                Log.d(Constants.TAG,youDaoTranslation.getTranslateResult().get(0).get(0).getTgt());
+            }
+
+            @Override
+            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Toast.makeText(mActivity, "request youdao Completed", Toast.LENGTH_SHORT).show();
+            }
+        },"I love you");
     }
 }

@@ -20,4 +20,9 @@
         style="@style/TextStyle"
         android:text="Rxjava处理有道词典查询"/>
 
+    <Button
+        android:id="@+id/btn_youdao_encapsulate"
+        style="@style/TextStyle"
+        android:text="封装Rxjava处理有道词典查询"/>
+
 </LinearLayout>
