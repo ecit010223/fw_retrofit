@@ -116,7 +116,7 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
         return hasPermission;
     }
 
-    /** 基本使用，访问了本机制node server上的rxjava.json数据 **/
+    /** 基本使用，访问了本机node server上的rxjava.json数据 **/
     private void basicUse(){
         Log.d(Constants.TAG,"basicUse()");
         ExampleRequest exampleRequest = mRetrofit.create(ExampleRequest.class);

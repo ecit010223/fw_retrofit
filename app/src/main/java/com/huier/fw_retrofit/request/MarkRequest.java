@@ -27,7 +27,8 @@ public interface MarkRequest {
      */
     @POST("/form")
     @FormUrlEncoded
-    Call<ResponseBody> formUrlEncoded(@Field("username") String name, @Field("age") int age);
+    Call<ResponseBody> formUrlEncoded(@Field("username") String name,
+                                      @Field("age") int age);
 
     /**
      * @param map Map的key作为表单的键
@@ -47,7 +48,8 @@ public interface MarkRequest {
      */
     @POST("/form")
     @Multipart
-    Call<ResponseBody> fileUpload(@Part("name")RequestBody name, @Part("age") RequestBody age,
+    Call<ResponseBody> fileUpload(@Part("name")RequestBody name,
+                                  @Part("age") RequestBody age,
                                   @Part MultipartBody.Part file);
 
     /**
@@ -59,7 +61,8 @@ public interface MarkRequest {
      */
     @POST("/form")
     @Multipart
-    Call<ResponseBody> fileUpload2(@PartMap Map<String, RequestBody> args, @Part MultipartBody.Part file);
+    Call<ResponseBody> fileUpload2(@PartMap Map<String, RequestBody> args,
+                                   @Part MultipartBody.Part file);
 
     @POST("/form")
     @Multipart

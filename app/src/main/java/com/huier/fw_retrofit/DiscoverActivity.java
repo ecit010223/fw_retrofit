@@ -98,7 +98,7 @@ public class DiscoverActivity extends AppCompatActivity implements View.OnClickL
                 .baseUrl(Constants.URL_YOUDAO)
                 //设置数据解析器，此处采用com.squareup.retrofit2:converter-gson
                 //Retrofit支持多种数据解析方式，使用时需要在Gradle添加依赖
-                //此处的转换是不是转换返回的数据，而是在调用相应自定义接口时@Path等参数的转换
+                //此处的转换不是转换返回的数据，而是在调用相应自定义接口时@Path等参数的转换
                 .addConverterFactory(GsonConverterFactory.create())
                 //设置网络请求适配器，此处采用com.squareup.retrofit2:adapter-rxjava
                 //Retrofit支持多种网络请求适配器方式：guava、Java8和rxjava
